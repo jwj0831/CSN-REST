@@ -39,190 +39,165 @@ public class SensorNetworkAPI {
 	ObjectMapper mapper = new ObjectMapper();
 	Map<String, String> retJsonMap = new HashMap<String, String>();
 	private CSNOperator operator;
-	
+
 	public SensorNetworkAPI(CSNOperator operator) {
 		this.operator = operator;
-		retJsonMap.put("category","SensorNetwork");
+		retJsonMap.put("cat","Network");
 	}
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response setSensorNetworkMetadata(SeedTransObj input ) {
 		logger.info( input.toString());
-		
-//		if(AuthCheck.checkAuth(input.getKey())) {
-			String id = operator.getSensorNetworkManager().createSensorNetworkMetadata(input.getSeed().getName(), input.getSeed().getMembers());
-			retJsonMap.put("action","POST");
-			retJsonMap.put("scope","one");
-			retJsonMap.put("id", id);
-			String retJsonString = null;
-			if(id != null)
-				retJsonMap.put("result", "OK");
-			else
-				retJsonMap.put("result", "Fail");
-			
-			try {
-				retJsonString = mapper.writeValueAsString(retJsonMap);
-			} catch (JsonProcessingException e) {
-				logger.error(e.toString());
-			}
-			return Response.ok(retJsonString, MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+
+		String id = operator.getSensorNetworkManager().createSensorNetworkMetadata(input.getSeed().getName(), input.getSeed().getMembers());
+		retJsonMap.put("action","POST");
+		retJsonMap.put("scope","one");
+		retJsonMap.put("id", id);
+		if(id != null)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
+
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllSensorNetworkMetadata(@QueryParam("key") String key) {
-		logger.info("Input Auth key: {}", key);
-//		if(AuthCheck.checkAuth(key)) {
-			List<SensorNetworkMetadata> metaList = operator.getSensorNetworkManager().getAllSensorNetworkMetadata();
-			if (metaList != null)
-				return Response.ok(metaList, MediaType.APPLICATION_JSON).build();
-			else
-				return Response.ok("{'category':'SensorNetwork', 'action':'GET', 'id':'null', 'result':'Fail' }", MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		List<SensorNetworkMetadata> metaList = operator.getSensorNetworkManager().getAllSensorNetworkMetadata();
+		if (metaList != null)
+			return Response.ok(metaList, MediaType.APPLICATION_JSON).build();
+		else {
+			retJsonMap.put("action","GET");
+			retJsonMap.put("scope","all");
+			retJsonMap.put("id", null);
+			retJsonMap.put("result", "Fail");
+			return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
+		}
 	}
-	
+
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response removeAllSensorNetworkMetadata(@QueryParam("key") String key) {
-		logger.info("Input Auth key: {}", key);
-//		if(AuthCheck.checkAuth(key)) {
-			DAOReturnType retType = operator.getSensorNetworkManager().deleteAllSensorNetworkMetadata();
-			if(retType == DAOReturnType.RETURN_OK)
-				return Response.ok("{'category':'SensorNetwork', 'action':'DELETE', 'id':'null', 'result':'OK' }", MediaType.APPLICATION_JSON).build();
-			else 
-				return Response.ok("{'category':'SensorNetwork', 'action':'DELETE', 'id':'null', 'result':'Fail' }", MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		DAOReturnType retType = operator.getSensorNetworkManager().deleteAllSensorNetworkMetadata();
+		retJsonMap.put("action","DELETE");
+		retJsonMap.put("scope","all");
+		retJsonMap.put("id", null);
+		if(retType == DAOReturnType.RETURN_OK)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
+
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@GET
 	@Path("/ids")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllId(@QueryParam("key") String key) {
-		logger.info("Input Auth key: {}", key);
-//		if(AuthCheck.checkAuth(key)) {
-			Set<String> idSet = operator.getSensorNetworkManager().getAllSensorNetworkID();
-			if(idSet != null)
-				return Response.ok(idSet, MediaType.APPLICATION_JSON).build();
-			else 
-				return Response.ok("{'category':'SensorNetwork', 'action':'GET', 'id':'null', 'result':'Fail' }", MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		Set<String> idSet = operator.getSensorNetworkManager().getAllSensorNetworkID();
+		if(idSet != null)
+			return Response.ok(idSet, MediaType.APPLICATION_JSON).build();
+		else{
+			retJsonMap.put("action","GET");
+			retJsonMap.put("scope","all");
+			retJsonMap.put("id", null);
+			retJsonMap.put("result", "Fail");
+			return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
+		}  
 	}
-	
+
 	@GET
 	@Path("/topics")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllTopicName(@QueryParam("key") String key) {
-		logger.info("Input Auth key: {}", key);
-//		if(AuthCheck.checkAuth(key)) {
-			Set<String> topicNameSet = operator.getSensorNetworkManager().getAllSensorNetworkTopicName();
-			if(topicNameSet != null)
-				return Response.ok(topicNameSet, MediaType.APPLICATION_JSON).build();
-			else 
-				return Response.ok("{'category':'SensorNetwork', 'action':'GET', 'id':'null', 'result':'Fail' }", MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		Set<String> topicNameSet = operator.getSensorNetworkManager().getAllSensorNetworkTopicName();
+		if(topicNameSet != null)
+			return Response.ok(topicNameSet, MediaType.APPLICATION_JSON).build();
+		else{
+			retJsonMap.put("action","GET");
+			retJsonMap.put("scope","all");
+			retJsonMap.put("id", null);
+			retJsonMap.put("result", "Fail");
+			return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
+		}  
 	}
-	
+
 	@GET
 	@Path("/members")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllTopicAndMemberIDs(@QueryParam("key") String key) {
-		logger.info("Input Auth key: {}", key);
-//		if(AuthCheck.checkAuth(key)) {
-			Map<String, Set<String>> membersMap = operator.getSensorNetworkManager().getAllSNTopicNameAndTheirMemberIDs();
-			if(membersMap != null)
-				return Response.ok(membersMap, MediaType.APPLICATION_JSON).build();
-			else 
-				return Response.ok("{'category':'SensorNetwork', 'action':'DELETE', 'id':'null', 'result':'Fail' }", MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		Map<String, Set<String>> membersMap = operator.getSensorNetworkManager().getAllSNTopicNameAndTheirMemberIDs();
+		if(membersMap != null)
+			return Response.ok(membersMap, MediaType.APPLICATION_JSON).build();
+		else{
+			retJsonMap.put("action","GET");
+			retJsonMap.put("scope","all");
+			retJsonMap.put("id", null);
+			retJsonMap.put("result", "Fail");
+			return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
+		}  
 	}
-	
+
 	@GET
 	@Path("/{name}-{epoch}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSensorNetworkMetadata(@QueryParam("key") String key, @PathParam("name") String name, @PathParam("epoch") String epoch) {
-		logger.info("Input Auth key: {}", key);
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor Network ID: {}", id );
-//		if(AuthCheck.checkAuth(key)) {
-			SensorNetworkMetadata metadata = operator.getSensorNetworkManager().getSensorNetworkMetadata(id);
-			if(metadata != null)
-				return Response.ok(metadata, MediaType.APPLICATION_JSON).build();
-			else
-				throw new NotFoundException("Sensor Network ID: " + id + " is not found");
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		SensorNetworkMetadata metadata = operator.getSensorNetworkManager().getSensorNetworkMetadata(id);
+		if(metadata != null)
+			return Response.ok(metadata, MediaType.APPLICATION_JSON).build();
+		else
+			throw new NotFoundException("Sensor Network ID: " + id + " is not found");
 	}
-	
+
 	@DELETE
 	@Path("/{name}-{epoch}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response removeSensorNetworkMetadata(@QueryParam("key") String key, @PathParam("name") String name, @PathParam("epoch") String epoch) {
-		logger.info("Input Auth key: {}", key);
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor Network ID: {}", id );
-//		if(AuthCheck.checkAuth(key)) {
-			DAOReturnType retType = operator.getSensorNetworkManager().removeSensorNetworkMetadata(id);
-			if(retType == DAOReturnType.RETURN_OK)
-				return Response.ok("{'category':'SensorNetwork', 'action':'DELETE', 'id':'"+ id +"', 'result':'OK' }", MediaType.APPLICATION_JSON).build();
-			else
-				return Response.serverError().build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		DAOReturnType retType = operator.getSensorNetworkManager().removeSensorNetworkMetadata(id);
+		retJsonMap.put("action","GET");
+		retJsonMap.put("scope","all");
+		retJsonMap.put("id", null);
+
+		if(retType == DAOReturnType.RETURN_OK)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
 	@Path("/{name}-{epoch}/members")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSensorNetworkMember(@QueryParam("key") String key, @PathParam("name") String name, @PathParam("epoch") String epoch) {
-		logger.info("Input Auth key: {}", key);
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor Network ID: {}", id );
-//		if(AuthCheck.checkAuth(key)) {
-			Set<String> memberSet = operator.getSensorNetworkManager().getSensorMembersInSensorNetwork(id);
-			if(memberSet != null)
-				return Response.ok(memberSet, MediaType.APPLICATION_JSON).build();
-			else
-				throw new NotFoundException("Members of Sensor Network ID: " + id + " is not found");
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		Set<String> memberSet = operator.getSensorNetworkManager().getSensorMembersInSensorNetwork(id);
+		if(memberSet != null)
+			return Response.ok(memberSet, MediaType.APPLICATION_JSON).build();
+		else
+			throw new NotFoundException("Members of Sensor Network ID: " + id + " is not found");
 	}
-	
+
 	@GET
 	@Path("/{name}-{epoch}/topic")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSensorNetworTopicName(@QueryParam("key") String key, @PathParam("name") String name, @PathParam("epoch") String epoch) {
-		logger.info("Input Auth key: {}", key);
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor Network ID: {}", id );
-//		if(AuthCheck.checkAuth(key)) {
-			String topicName = operator.getSensorNetworkManager().getSensorNetworkTopicName(id);
-			if(topicName != null)
-				return Response.ok("{\"topic_name\":\"" + topicName + "\"}", MediaType.APPLICATION_JSON).build();
-			else
-				throw new NotFoundException("Topic Name of Sensor Network ID: " + id + " is not found");
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		String topicName = operator.getSensorNetworkManager().getSensorNetworkTopicName(id);
+		if(topicName != null)
+			return Response.ok("{\"topic_name\":\"" + topicName + "\"}", MediaType.APPLICATION_JSON).build();
+		else
+			throw new NotFoundException("Topic Name of Sensor Network ID: " + id + " is not found");
 	}
-	
+
 	@POST
 	@Path("/{name}-{epoch}/opts")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -231,47 +206,31 @@ public class SensorNetworkAPI {
 		logger.info(input.toString());
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor ID: {}", id );
-//		if(AuthCheck.checkAuth(input.getKey())) {
-			DAOReturnType retType = operator.getSensorNetworkManager().addOptionalSensorNetworkMetadata(id, input.getOpt_meta().getElmts());
-			
-			retJsonMap.put("action","POST");
-			retJsonMap.put("scope","one");
-			retJsonMap.put("id", id );
-			String retJsonString = null;
-			if(retType != DAOReturnType.RETURN_ERROR)
-				retJsonMap.put("result", "OK");
-			else
-				retJsonMap.put("result", "Fail");
+		DAOReturnType retType = operator.getSensorNetworkManager().addOptionalSensorNetworkMetadata(id, input.getOpt_meta().getElmts());
 
-			try {
-				retJsonString = mapper.writeValueAsString(retJsonMap);
-			} catch (JsonProcessingException e) {
-				logger.error(e.toString());
-			}
-			return Response.ok(retJsonString, MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		retJsonMap.put("action","POST");
+		retJsonMap.put("scope","one");
+		retJsonMap.put("id", id );
+		if(retType != DAOReturnType.RETURN_ERROR)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@GET
 	@Path("/{name}-{epoch}/opts")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSensorNetworkOptaionalMetadata(@QueryParam("key") String key, @PathParam("name") String name, @PathParam("epoch") String epoch) {
-		logger.info("Input Auth key: {}", key);
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor ID: {}", id );
-//		if(AuthCheck.checkAuth(key)) {
-			Map<String, String> optMap = operator.getSensorNetworkManager().getAllOptionalSensorNetworkMetadata(id);
-			if(optMap != null)
-				return Response.ok(optMap, MediaType.APPLICATION_JSON).build();
-			else
-				throw new NotFoundException("Optional Metadata of Sensor Network ID: " + id + " is not found");
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		Map<String, String> optMap = operator.getSensorNetworkManager().getAllOptionalSensorNetworkMetadata(id);
+		if(optMap != null)
+			return Response.ok(optMap, MediaType.APPLICATION_JSON).build();
+		else
+			throw new NotFoundException("Optional Metadata of Sensor Network ID: " + id + " is not found");
 	}
-	
+
 	@PUT
 	@Path("/{name}-{epoch}/opts")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -280,157 +239,99 @@ public class SensorNetworkAPI {
 		logger.info(input.toString());
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor ID: {}", id );
-//		if(AuthCheck.checkAuth(input.getKey())) {
-			DAOReturnType retType = operator.getSensorNetworkManager().updateOptionalSensorNetworkMetadata(id, input.getOpt_meta().getElmts());
-			
-			retJsonMap.put("action","POST");
-			retJsonMap.put("scope","one");
-			retJsonMap.put("id", id );
-			String retJsonString = null;
-			if(retType != DAOReturnType.RETURN_ERROR)
-				retJsonMap.put("result", "OK");
-			else
-				retJsonMap.put("result", "Fail");
+		DAOReturnType retType = operator.getSensorNetworkManager().updateOptionalSensorNetworkMetadata(id, input.getOpt_meta().getElmts());
 
-			try {
-				retJsonString = mapper.writeValueAsString(retJsonMap);
-			} catch (JsonProcessingException e) {
-				logger.error(e.toString());
-			}
-			return Response.ok(retJsonString, MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		retJsonMap.put("action","PUT");
+		retJsonMap.put("scope","one");
+		retJsonMap.put("id", id );
+		if(retType != DAOReturnType.RETURN_ERROR)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
+
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@DELETE
 	@Path("/{name}-{epoch}/opts")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response removeSensorNetworkAllOptionalMetadata(@QueryParam("key") String key, @PathParam("name") String name, @PathParam("epoch") String epoch) {
-		logger.info("Input Auth key: {}", key);
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor Network ID: {}", id );
-//		if(AuthCheck.checkAuth(key)) {
-			DAOReturnType retType = operator.getSensorNetworkManager().removeOptionalSensorNetworkMetadata(id);
-			if(retType == DAOReturnType.RETURN_OK)
-				return Response.ok("{'category':'SensorNetwork', 'action':'DELETE', 'id':'"+ id +"', 'result':'OK' }", MediaType.APPLICATION_JSON).build();
-			else
-				return Response.serverError().build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
-	}
-	
-	
+		DAOReturnType retType = operator.getSensorNetworkManager().removeOptionalSensorNetworkMetadata(id);
+		retJsonMap.put("action","DELETE");
+		retJsonMap.put("scope","one");
+		retJsonMap.put("id", id );
+		if(retType != DAOReturnType.RETURN_ERROR)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
 
-//	@POST
-//	@Path("/{name}-{epoch}/opts/{opt_name}")
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response setSensorNetworkOptionalMetadataValue(OptionalMetaDataTransObj input, @PathParam("name") String name, 
-//											@PathParam("epoch") String epoch, @PathParam("opt_name") String opt_name) {
-//		logger.info(input.toString());
-//		String id = name+"-"+epoch ;
-//		logger.info("Input Sensor ID: {}", id );
-//		
-////		if(AuthCheck.checkAuth(input.getKey())) {
-//			DAOReturnType retType = operator.getSensorNetworkManager().addOptionalSensorMetadata(id, input.getOpt_meta().getElmts());
-//			
-//			retJsonMap.put("action","POST");
-//			retJsonMap.put("scope","one");
-//			retJsonMap.put("id", id );
-//			String retJsonString = null;
-//			if(retType != DAOReturnType.RETURN_ERROR)
-//				retJsonMap.put("result", "OK");
-//			else
-//				retJsonMap.put("result", "Fail");
-//
-//			try {
-//				retJsonString = mapper.writeValueAsString(retJsonMap);
-//			} catch (JsonProcessingException e) {
-//				logger.error(e.toString());
-//			}
-//			return Response.ok(retJsonString, MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
-//	}
-	
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
+		
+	}
+
+
 	@GET
 	@Path("/{name}-{epoch}/opts/{opt_name}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSensorNetworkOptaionalMetadataValue(@QueryParam("key") String key, @PathParam("name") String name, 
-											@PathParam("epoch") String epoch, @PathParam("opt_name") String opt_name) {
-		logger.info("Input Auth key: {}", key);
+			@PathParam("epoch") String epoch, @PathParam("opt_name") String opt_name) {
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor ID: {}", id );
 		logger.info("Input Option Name: {}", opt_name);
-//		if(AuthCheck.checkAuth(key)) {
-			String opt_val = operator.getSensorNetworkManager().getOptionalSensorNetworkMetadataValue(id, opt_name);
-			if(opt_val != null) {
-				Map<String, String> optMap = new HashMap<String, String>();
-				optMap.put(opt_name, opt_val);
-				return Response.ok(optMap, MediaType.APPLICATION_JSON).build();
-			}
-			else
-				throw new NotFoundException("Option Vaule of Option Name: " + opt_name + " in SN ID: " + id + " is not found");
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		String opt_val = operator.getSensorNetworkManager().getOptionalSensorNetworkMetadataValue(id, opt_name);
+		if(opt_val != null) {
+			Map<String, String> optMap = new HashMap<String, String>();
+			optMap.put(opt_name, opt_val);
+			return Response.ok(optMap, MediaType.APPLICATION_JSON).build();
+		}
+		else
+			throw new NotFoundException("Option Vaule of Option Name: " + opt_name + " in SN ID: " + id + " is not found");
 	}
-	
+
 	@PUT
 	@Path("/{name}-{epoch}/opts/{opt_name}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateSensorNetworkOptionalMetadataValue(OptionalMetaDataTransObj input, @PathParam("name") String name, 
-												@PathParam("epoch") String epoch, @PathParam("opt_name") String opt_name) {
+			@PathParam("epoch") String epoch, @PathParam("opt_name") String opt_name) {
 		logger.info(input.toString());
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor ID: {}", id );
 		logger.info("Input Option Name: {}", opt_name);
-//		if(AuthCheck.checkAuth(input.getKey())) {
-			DAOReturnType retType = operator.getSensorNetworkManager().updateOptionalSensorNetworkMetadata(id, input.getOpt_meta().getElmts());
-			retJsonMap.put("action","PUT");
-			retJsonMap.put("scope","one");
-			retJsonMap.put("id", id );
-			String retJsonString = null;
-			if(retType != DAOReturnType.RETURN_ERROR)
-				retJsonMap.put("result", "OK");
-			else
-				retJsonMap.put("result", "Fail");
+		DAOReturnType retType = operator.getSensorNetworkManager().updateOptionalSensorNetworkMetadata(id, input.getOpt_meta().getElmts());
+		retJsonMap.put("action","PUT");
+		retJsonMap.put("scope","one");
+		retJsonMap.put("id", id );
+		if(retType != DAOReturnType.RETURN_ERROR)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
 
-			try {
-				retJsonString = mapper.writeValueAsString(retJsonMap);
-			} catch (JsonProcessingException e) {
-				logger.error(e.toString());
-			}
-			return Response.ok(retJsonString, MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@DELETE
 	@Path("/{name}-{epoch}/opts/{opt_name}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response removeSensorNetworkOptionalMetadataValue(@QueryParam("key") String key, @PathParam("name") String name, 
-													@PathParam("epoch") String epoch, @PathParam("opt_name") String opt_name) {
-		logger.info("Input Auth key: {}", key);
+			@PathParam("epoch") String epoch, @PathParam("opt_name") String opt_name) {
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor Network ID: {}", id );
 		logger.info("Input Option Name: {}", opt_name);
-//		if(AuthCheck.checkAuth(key)) {
-			DAOReturnType retType = operator.getSensorNetworkManager().removeOptionalSensorNetworkMetadataValue(id, opt_name);
-			if(retType == DAOReturnType.RETURN_OK)
-				return Response.ok("{'category':'SensorNetwork', 'action':'DELETE', 'id':'"+ id +"', 'result':'OK' }", MediaType.APPLICATION_JSON).build();
-			else
-				return Response.serverError().build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		DAOReturnType retType = operator.getSensorNetworkManager().removeOptionalSensorNetworkMetadataValue(id, opt_name);
+		retJsonMap.put("action","DELETE");
+		retJsonMap.put("scope","one");
+		retJsonMap.put("id", id );
+		if(retType != DAOReturnType.RETURN_ERROR)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
+
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@POST
 	@Path("/{name}-{epoch}/tags")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -439,176 +340,100 @@ public class SensorNetworkAPI {
 		logger.info(input.toString());
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor ID: {}", id );
-//		if(AuthCheck.checkAuth(input.getKey())) {
-			DAOReturnType retType = operator.getSensorNetworkManager().addTagSetToSensorNetwork(id, input.getTag_meta().getTags());
-			retJsonMap.put("action","POST");
-			retJsonMap.put("scope","one");
-			retJsonMap.put("id", id );
-			String retJsonString = null;
-			if(retType != DAOReturnType.RETURN_ERROR)
-				retJsonMap.put("result", "OK");
-			else
-				retJsonMap.put("result", "Fail");
+		DAOReturnType retType = operator.getSensorNetworkManager().addTagSetToSensorNetwork(id, input.getTag_meta().getTags());
+		retJsonMap.put("action","POST");
+		retJsonMap.put("scope","one");
+		retJsonMap.put("id", id );
+		if(retType != DAOReturnType.RETURN_ERROR)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
 
-			try {
-				retJsonString = mapper.writeValueAsString(retJsonMap);
-			} catch (JsonProcessingException e) {
-				logger.error(e.toString());
-			}
-			return Response.ok(retJsonString, MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@GET
 	@Path("/{name}-{epoch}/tags")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSensorNetworkTags(@QueryParam("key") String key, @PathParam("name") String name, @PathParam("epoch") String epoch) {
-		logger.info("Input Auth key: {}", key);
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor ID: {}", id );
-//		if(AuthCheck.checkAuth(key)) {
-			Set<String> tagSet = operator.getSensorNetworkManager().getAllTagBySensorNetworkID(id);
-			if(tagSet != null)
-				return Response.ok(tagSet, MediaType.APPLICATION_JSON).build();
-			else
-				throw new NotFoundException("Tags of Sensor Network ID: " + id + " is not found");
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		Set<String> tagSet = operator.getSensorNetworkManager().getAllTagBySensorNetworkID(id);
+		if(tagSet != null)
+			return Response.ok(tagSet, MediaType.APPLICATION_JSON).build();
+		else
+			throw new NotFoundException("Tags of Sensor Network ID: " + id + " is not found");
 	}
-	
-//	@PUT
-//	@Path("/{name}-{epoch}/tags")
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response updatetSensorNetworkTags(OptionalMetaDataTransObj input, @PathParam("name") String name, @PathParam("epoch") String epoch) {
-//		logger.info(input.toString());
-//		String id = name+"-"+epoch ;
-//		logger.info("Input Sensor ID: {}", id );
-////		if(AuthCheck.checkAuth(input.getKey())) {
-//			DAOReturnType retType = operator.getSensorNetworkManager().updateOptionalSensorNetworkMetadata(id, input.getOpt_meta().getElmts());
-//			
-//			retJsonMap.put("action","POST");
-//			retJsonMap.put("scope","one");
-//			retJsonMap.put("id", id );
-//			String retJsonString = null;
-//			if(retType != DAOReturnType.RETURN_ERROR)
-//				retJsonMap.put("result", "OK");
-//			else
-//				retJsonMap.put("result", "Fail");
-//
-//			try {
-//				retJsonString = mapper.writeValueAsString(retJsonMap);
-//			} catch (JsonProcessingException e) {
-//				logger.error(e.toString());
-//			}
-//			return Response.ok(retJsonString, MediaType.APPLICATION_JSON).build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
-//	}
-	
+
+
 	@DELETE
 	@Path("/{name}-{epoch}/tags")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response removeSensorNetworkAllTag(@QueryParam("key") String key, @PathParam("name") String name, @PathParam("epoch") String epoch) {
-		logger.info("Input Auth key: {}", key);
+		//logger.info("Input Auth key: {}", key);
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor Network ID: {}", id );
-//		if(AuthCheck.checkAuth(key)) {
-			DAOReturnType retType = operator.getSensorNetworkManager().removeAllTagInSensorNetwork(id);
-			if(retType == DAOReturnType.RETURN_OK)
-				return Response.ok("{'category':'SensorNetwork', 'action':'DELETE', 'id':'"+ id +"', 'result':'OK' }", MediaType.APPLICATION_JSON).build();
-			else
-				return Response.serverError().build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		//		if(AuthCheck.checkAuth(key)) {
+		DAOReturnType retType = operator.getSensorNetworkManager().removeAllTagInSensorNetwork(id);
+		retJsonMap.put("action","DELETE");
+		retJsonMap.put("scope","one");
+		retJsonMap.put("id", id );
+		if(retType != DAOReturnType.RETURN_ERROR)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
+
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
-	
-//	@GET
-//	@Path("/{name}-{epoch}/opts/{tag}")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response getSensorNetworkTag(@QueryParam("key") String key, @PathParam("name") String name, 
-//											@PathParam("epoch") String epoch, @PathParam("tag") String tag) {
-//		logger.info("Input Auth key: {}", key);
-//		String id = name+"-"+epoch ;
-//		logger.info("Input Sensor ID: {}", id );
-//		logger.info("Input Tag: {}", tag);
-////		if(AuthCheck.checkAuth(key)) {
-//			String opt_val = operator.getSensorNetworkManager().getOptionalSensorMetadataValue(id, opt_name);
-//			if(opt_val != null) {
-//				Map<String, String> optMap = new HashMap<String, String>();
-//				optMap.put(opt_name, opt_val);
-//				return Response.ok(optMap, MediaType.APPLICATION_JSON).build();
-//			}
-//			else
-//				throw new NotFoundException("Option Vaule of Option Name: " + opt_name + " in SN ID: " + id + " is not found");
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
-//	}
-	
+
 	@PUT
 	@Path("/{name}-{epoch}/tags/{tag}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateSensorNetworkTag(TagTransObj input, @PathParam("name") String name, 
-												@PathParam("epoch") String epoch, @PathParam("tag") String tag) {
+			@PathParam("epoch") String epoch, @PathParam("tag") String tag) {
 		logger.info(input.toString());
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor ID: {}", id );
 		logger.info("Input Tag: {}", tag);
-//		if(AuthCheck.checkAuth(input.getKey())) {
-			retJsonMap.put("action","PUT");
-			retJsonMap.put("scope","one");
-			retJsonMap.put("id", id );
-			String retJsonString = null;
-			
-			if( input.getTag_meta().getTags().size() != 1) {
-				 retJsonMap.put("result", "Fail");
-				 return Response.ok(retJsonString, MediaType.APPLICATION_JSON).build();
-			}
-			else {
-				String newTag = input.getTag_meta().getTags().iterator().next();
-				DAOReturnType retType = operator.getSensorNetworkManager().updateTagInSensorNetwork(id, tag, newTag);
-				
-				if(retType != DAOReturnType.RETURN_ERROR)
-					retJsonMap.put("result", "OK");
-				else
-					retJsonMap.put("result", "Fail");
+		//		if(AuthCheck.checkAuth(input.getKey())) {
+		retJsonMap.put("action","PUT");
+		retJsonMap.put("scope","one");
+		retJsonMap.put("id", id );
 
-				try {
-					retJsonString = mapper.writeValueAsString(retJsonMap);
-				} catch (JsonProcessingException e) {
-					logger.error(e.toString());
-				}
-				return Response.ok(retJsonString, MediaType.APPLICATION_JSON).build();
-			}
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		if( input.getTag_meta().getTags().size() != 1) {
+			retJsonMap.put("result", "Fail");
+			return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
+		}
+		else {
+			String newTag = input.getTag_meta().getTags().iterator().next();
+			DAOReturnType retType = operator.getSensorNetworkManager().updateTagInSensorNetwork(id, tag, newTag);
+
+			if(retType != DAOReturnType.RETURN_ERROR)
+				retJsonMap.put("result", "OK");
+			else
+				retJsonMap.put("result", "Fail");
+
+			return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
+		}
 	}
-	
+
 	@DELETE
 	@Path("/{name}-{epoch}/tags/{tag}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response removeSensorNetworkTag(@QueryParam("key") String key, @PathParam("name") String name, 
-													@PathParam("epoch") String epoch, @PathParam("tag") String tag) {
-		logger.info("Input Auth key: {}", key);
+			@PathParam("epoch") String epoch, @PathParam("tag") String tag) {
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor Network ID: {}", id );
 		logger.info("Input Tag: {}", tag);
-//		if(AuthCheck.checkAuth(key)) {
-			DAOReturnType retType = operator.getSensorNetworkManager().removeTagInSensorNetwork(id, tag);
-			if(retType == DAOReturnType.RETURN_OK)
-				return Response.ok("{'category':'SensorNetwork', 'action':'DELETE', 'id':'"+ id +"', 'result':'OK' }", MediaType.APPLICATION_JSON).build();
-			else
-				return Response.serverError().build();
-//		}
-//		else
-//			throw new UnauthorizedException("Authorization Required");
+		DAOReturnType retType = operator.getSensorNetworkManager().removeTagInSensorNetwork(id, tag);
+		retJsonMap.put("action","PUT");
+		retJsonMap.put("scope","one");
+		retJsonMap.put("id", id );
+		if(retType != DAOReturnType.RETURN_ERROR)
+			retJsonMap.put("result", "OK");
+		else
+			retJsonMap.put("result", "Fail");
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
 }

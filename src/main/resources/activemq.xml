@@ -14,7 +14,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
   http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
 
-	<broker xmlns="http://activemq.apache.org/schema/core" brokerName="localhost" useJmx="true" dataDirectory="activeMQ">
+	<broker xmlns="http://activemq.apache.org/schema/core" brokerName="localhost" useJmx="true" dataDirectory="./activeMQ">
         <destinationPolicy>
             <policyMap>
                 <policyEntries>
@@ -32,7 +32,7 @@
 		</managementContext>
 		
 		<persistenceAdapter>
-			<kahaDB directory="activeMQ/kahadb" />
+			<kahaDB directory="./activeMQ/kahadb" />
 		</persistenceAdapter>
 		
 		<systemUsage>
