@@ -1,0 +1,153 @@
+1. CSN
+
+GET [CSN MetaData]
+-------------------------------------------------------
+curl -v \
+http://localhost:9999/CSN-REST/csn?key=1
+-------------------------------------------------------
+
+
+POST (JSON) [CSN Metadata]
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"key":"1", "name":"CSN-REST-Test","adminName":"NFM", "adminEmail":"jwj0831@gmail.com"}' \
+http://localhost:9999/CSN-REST/csn
+-------------------------------------------------------
+
+POST (JSON) [Start CSN System]
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"key":"1", "name":"CSN-REST","adminName":"Woojin", "adminEmail":"jwj0831@gmail.com"}' \
+http://localhost:9999/CSN-REST/csn/start
+-------------------------------------------------------
+
+
+POST (JSON) [Restart CSN System]
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"key":"1", "name":"CSN-REST","adminName":"Woojin", "adminEmail":"jwj0831@gmail.com"}' \
+http://localhost:9999/CSN-REST/csn/restart
+-------------------------------------------------------
+
+
+POST (JSON) [Stop CSN System]
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"key":"1"}' \
+http://localhost:9999/CSN-REST/csn/stop
+-------------------------------------------------------
+
+
+POST (Form) 
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/x-www-form-urlencoded" \
+-X POST \
+-d 'name=CSN_Web&adminName=Woojin&adminEmail=jwj0831@gmail.com&key=2d207a02df6601572b6542f00bc90f3f9becf358' \
+http://localhost:9999/CSN-REST/csn
+-------------------------------------------------------
+
+
+
+2. Sensor Network
+
+GET [All Sensor Network Metadata]
+-------------------------------------------------------
+curl -v \
+http://localhost:9999/CSN-REST/sensor-networks?key=1
+-------------------------------------------------------
+
+DELETE [All Sensor Network Metadata]
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://localhost:9999/CSN-REST/sensor-networks?key=1
+-------------------------------------------------------
+
+
+GET [Sensor Network Metadata]
+-------------------------------------------------------
+curl -v \
+http://localhost:9999/CSN-REST/sensor-networks/sensor-network/Weather-1401726113340?key=1
+-------------------------------------------------------
+
+
+DELETE [Sensor Network Metadata]
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://localhost:9999/CSN-REST/sensor-networks/sensor-network/Weather-1401660402008?key=1
+-------------------------------------------------------
+
+POST (JSON) [Sensor Network Metadata]
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"key":"1",
+"name":"Net4",
+"members":["Node1-1401720846850","Node2-1401720871489","Node3-1401720881071"]
+}' \
+http://localhost:9999/CSN-REST/sensor-networks/sensor-network
+-------------------------------------------------------
+
+
+
+3. Sensor
+
+GET [All Sensor Metadata]
+-------------------------------------------------------
+curl -v \
+http://localhost:9999/CSN-REST/sensors?key=1
+-------------------------------------------------------
+
+
+DELETE [All Sensor Network Metadata]
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://localhost:9999/CSN-REST/sensors?key=1
+-------------------------------------------------------
+
+
+GET [Sensor Metadata]
+-------------------------------------------------------
+curl -v \
+http://localhost:9999/CSN-REST/sensors/sensor/id?key=1
+-------------------------------------------------------
+
+
+DELETE [Sensor Metadata]
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://localhost:9999/CSN-REST/sensors/sensor/id?key=1
+-------------------------------------------------------
+
+
+POST (JSON) [Sensor Metadata]
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"key":"1", "name":"Node7", "measurement":Temperature"}' \
+http://localhost:9999/CSN-REST/sensors/sensor
+-------------------------------------------------------
+
+
+

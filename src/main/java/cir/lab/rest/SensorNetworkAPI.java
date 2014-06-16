@@ -161,9 +161,9 @@ public class SensorNetworkAPI {
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor Network ID: {}", id );
 		DAOReturnType retType = operator.getSensorNetworkManager().removeSensorNetworkMetadata(id);
-		retJsonMap.put("action","GET");
+		retJsonMap.put("action","NETWORK");
 		retJsonMap.put("scope","all");
-		retJsonMap.put("id", null);
+		retJsonMap.put("id", id);
 
 		if(retType == DAOReturnType.RETURN_OK)
 			retJsonMap.put("result", "OK");
@@ -427,7 +427,7 @@ public class SensorNetworkAPI {
 		logger.info("Input Sensor Network ID: {}", id );
 		logger.info("Input Tag: {}", tag);
 		DAOReturnType retType = operator.getSensorNetworkManager().removeTagInSensorNetwork(id, tag);
-		retJsonMap.put("action","PUT");
+		retJsonMap.put("action","DELETE");
 		retJsonMap.put("scope","one");
 		retJsonMap.put("id", id );
 		if(retType != DAOReturnType.RETURN_ERROR)

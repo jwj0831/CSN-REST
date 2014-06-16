@@ -1,0 +1,77 @@
+GET [CSN MetaData] OK
+
+
+
+GET [All Sensor Metadata] OK
+{"all-meta-list":[{"def_meta":{"name":"Node4","measure":"Temperature","id":"Node4-1401879637113","reg_time":"2014-06-04 20:00:37.0"},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}},{"def_meta":{"name":"Node2","measure":"Temperature","id":"Node2-1401879618735","reg_time":"2014-06-04 20:00:19.0"},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}},{"def_meta":{"name":"Node3","measure":"Temperature","id":"Node3-1401879627187","reg_time":"2014-06-04 20:00:27.0"},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}},{"def_meta":{"name":"Node6","measure":"Temperature","id":"Node6-1401879655711","reg_time":"2014-06-04 20:00:56.0"},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}},{"def_meta":{"name":"Node1","measure":"Temperature","id":"Node1-1401879598753","reg_time":"2014-06-04 19:59:59.0"},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}},{"def_meta":{"name":"Node5","measure":"Temperature","id":"Node5-1401879648164","reg_time":"2014-06-04 20:00:48.0"},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}}]}
+
+
+
+GET [Sensor ID List] OK
+{"id-list":["Node1-1401879796458","Node10-1401879859698","Node3-1401879807573","Node8-1401879842648","Node7-1401879834344","Node9-1401879848724","Node6-1401879819344","Node4-1401879810818","Node2-1401879800578","Node5-1401879815674"]}
+
+
+
+GET [Sensor Metadata] OK
+{"def_meta":{"name":"Node5","measure":"Temperature","id":"Node5-1401879815674","reg_time":"2014-06-04 20:03:36.0"},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}}
+
+
+
+GET [Sensor All Optional Metadata] OK
+{"opt3":"opt val3","opt1":"opt val1","opt2":"opt val2"}
+
+
+
+GET [Sensor Optional Metadata] OK
+{"opt1":"opt_val1"}
+
+
+GET [Sensor All Tag Metadata] OK
+["tag1","tag2","tag3"]
+
+
+
+GET [All Sensor Network Metadata]
+[{"def_meta":{"name":"Node2","members":["Node2-1401887423195"],"id":"Node2-1401887423195","creationTime":"2014-06-04 22:10:23.0","removalTime":null,"topicName":"CSN.SINGLE.Node2.1401887423195","alive":1},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}},{"def_meta":{"name":"Node1","members":["Node1-1401885068980"],"id":"Node1-1401885068980","creationTime":"2014-06-04 21:31:09.0","removalTime":null,"topicName":"CSN.SINGLE.Node1.1401885068980","alive":1},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}},{"def_meta":{"name":"Node3","members":["Node3-1401887433815"],"id":"Node3-1401887433815","creationTime":"2014-06-04 22:10:34.0","removalTime":null,"topicName":"CSN.SINGLE.Node3.1401887433815","alive":1},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}},{"def_meta":{"name":"Net1","members":["Node2-1401887423195","Node1-1401885068980","Node3-1401887433815"],"id":"Net1-1401887884722","creationTime":"2014-06-04 22:18:05.0","removalTime":null,"topicName":"CSN.MULTI.Net1.1401887884722","alive":1},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}}]
+
+
+
+GET [Sensor Network All ID]
+["Node2-1401887423195","Node1-1401885068980","Node3-1401887433815","Net1-1401887884722"]
+
+
+GET [Sensor Network All Topics] OK
+["CSN.SINGLE.Node1.1401885068980","CSN.MULTI.Net1.1401887884722","CSN.SINGLE.Node3.1401887433815","CSN.SINGLE.Node2.1401887423195"]
+
+
+GET [Sensor Network All Members] OK
+{"CSN.SINGLE.Node1.1401885068980":["Node1-1401885068980"],"CSN.SINGLE.Node3.1401887433815":["Node3-1401887433815"],"CSN.MULTI.Net1.1401887884722":["Node2-1401887423195","Node1-1401885068980","Node3-1401887433815"],"CSN.SINGLE.Node2.1401887423195":["Node2-1401887423195"]}
+
+
+GET [Sensor Network Metadata] OK
+{"def_meta":{"name":"Net1","members":["Node2-1401887423195","Node1-1401885068980","Node3-1401887433815"],"id":"Net1-1401887884722","creationTime":"2014-06-04 22:18:05.0","removalTime":"2014-06-04 22:20:15.0","topicName":"CSN.MULTI.Net1.1401887884722","alive":1},"opt_meta":{"elmts":{}},"snsr_tag":{"tags":[]}}
+
+
+GET [Sensor Network Members] OK
+"Node2-1401887423195","Node1-1401885068980","Node3-1401887433815"]
+
+
+GET [Sensor Network Topic Name] OK
+{"topic_name":"CSN.MULTI.Net1.1401887884722"}
+
+
+GET [Sensor Network All Optional Metadata] OK
+{"opt1":"opt val1","opt2":"opt val2"}
+
+
+
+GET [Sensor Network Optional Metadata] OK
+{"opt1":"new opt_val1"}
+
+
+GET [Sensor Network All Tag Metadata] OK
+["tag1","tag2","tag3"]
+
+
+
+

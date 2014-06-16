@@ -80,7 +80,7 @@ public class CSNServiceAPI {
 		logger.info(input.toString());
 		if(config == null)
 			config = new CSNConfigMetadata();
-
+		System.out.println("test");
 		config.setName(input.getConfig().getName());
 		config.setCreationTime(TimeGeneratorUtil.getCurrentTimestamp());
 		config.setAdminName(input.getConfig().getAdminName());
@@ -99,7 +99,7 @@ public class CSNServiceAPI {
 	@GET
 	@Path("/csn")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getCSNConfigMetadata(@QueryParam("key") String key) {
+	public Response getCSNConfigMetadata() {
 		if(operator != null)
 			config = operator.getCsnConfigMetadata();
 
@@ -112,7 +112,7 @@ public class CSNServiceAPI {
 	@DELETE
 	@Path("/csn")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response removeCSNConfigMetadata(@QueryParam("key") String key) {
+	public Response removeCSNConfigMetadata() {
 		if(operator != null) {
 			operator.stopSystem();
 			operator = null;
@@ -183,4 +183,33 @@ public class CSNServiceAPI {
 		retJsonMap.put("result","Ok");
 		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build(); 
 	}
+	
+	@GET
+	@Path("/csn/broker/status")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getBrokerName() {
+		Map<String, Object> retJsonMap = new HashMap<String, Object>();
+		retJsonMap.put("status", operator.getBrokerManager().getCurrentHealthStatus());
+		retJsonMap.put("in-num", operator.getBrokerManager().getTotalEnqueueCount());
+		retJsonMap.put("out-num", operator.getBrokerManager().getTotalDequeueCount());
+		retJsonMap.put("pro-num", operator.getBrokerManager().getTotalProducerCount());
+		retJsonMap.put("con-num", operator.getBrokerManager().getTotalConsumerCount());
+		retJsonMap.put("storage", operator.getBrokerManager().getStoreUsagePercentage());
+		retJsonMap.put("mem", operator.getBrokerManager().getMemoryUsagePercentage());
+		
+		operator.getBrokerManager().getTotalEnqueueCount();
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build(); 
+	}
+	
+	@GET
+	@Path("/csn/broker/topics")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getBrokerMessageNum() {
+		Map<String, Object> retJsonMap = new HashMap<String, Object>();
+		retJsonMap.put("in-num", operator.getBrokerManager().getTopicEnqueueCount());
+		retJsonMap.put("out-num", operator.getBrokerManager().getTopicDequeueCount());
+		
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build(); 
+	}
+
 }

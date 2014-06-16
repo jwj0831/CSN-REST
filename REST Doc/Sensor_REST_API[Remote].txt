@@ -1,0 +1,154 @@
+POST [Sensor Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"seed":{"name":"Node10", "measure":"Weather"}}' \
+http://117.16.146.55:9999/CSN-REST/sensors
+-------------------------------------------------------
+
+
+GET [All Sensor Metadata] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensors
+-------------------------------------------------------
+
+
+DELETE [All Sensor Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensors
+-------------------------------------------------------
+
+
+GET [Sensor ID List] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensors/ids
+-------------------------------------------------------
+
+
+GET [Sensor Metadata] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensors/Node5-1401879815674
+-------------------------------------------------------
+
+
+DELETE [Sensor Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensors/Node6-1401879819344
+-------------------------------------------------------
+
+
+POST [Sensor All Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"opt_meta":{"elmts":{"opt1":"opt val1", "opt2":"opt val2"}}}' \
+http://117.16.146.55:9999/CSN-REST/sensors/Node1-1401957226914/opts
+-------------------------------------------------------
+
+
+GET [Sensor All Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensors/Node1-1401885068980/opts
+-------------------------------------------------------
+
+
+PUT [Sensor All Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X PUT \
+-d '{"opt_meta":{"elmts":{"opt1":"opt_val1"}}}' \
+http://117.16.146.55:9999/CSN-REST/sensors/Node3-1401957307335/opts
+-------------------------------------------------------
+
+
+DELETE [Sensor All Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensors/Node1-1401885068980/opts
+-------------------------------------------------------
+
+
+GET [Sensor Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensors/Node1-1401885068980/opts/opt1
+-------------------------------------------------------
+
+
+PUT [Sensor Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X PUT \
+-d '{"opt_meta":{"elmts":{"opt1":"val1"}}}' \
+http://117.16.146.55:9999/CSN-REST/sensors/Node1-1401885068980/opts/opt1
+-------------------------------------------------------
+
+
+DELETE [Sensor Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensors/Node1-1401885068980/opts/opt2
+-------------------------------------------------------
+
+
+POST [Sensor All Tag Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"tag_meta":{"tags":["tag2", "tag4"]}}' \
+http://117.16.146.55:9999/CSN-REST/sensors/Node4-1401957321465/tags
+-------------------------------------------------------
+
+
+GET [Sensor All Tag Metadata] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensors/Node1-1401885068980/tags
+-------------------------------------------------------
+
+
+DELETE [Sensor All Tag Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensors/Node1-1401885068980/tags
+-------------------------------------------------------
+
+
+PUT [Sensor Tag Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X PUT \
+-d '{"tag_meta":{"tags":["newTag"]}}'  \
+http://117.16.146.55:9999/CSN-REST/sensors/Node1-1401885068980/tags/tag1
+-------------------------------------------------------
+
+
+DELETE [Sensor Tag Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensors/Node1-1401885068980/tags/opt2
+-------------------------------------------------------

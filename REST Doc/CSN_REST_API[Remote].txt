@@ -1,0 +1,56 @@
+POST [CSN Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"config":{"name":"CSN-REST-Test","adminName":"NFM", "adminEmail":"jwj0831@gmail.com"}}' \
+http://117.16.146.55:9999/CSN-REST/csn
+-------------------------------------------------------
+
+
+GET [CSN MetaData] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/csn
+-------------------------------------------------------
+
+
+DELETE [CSN MetaData] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/csn
+-------------------------------------------------------
+
+POST (JSON) [Start CSN System] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"config":{"name":"CSN-REST-Test","adminName":"NFM", "adminEmail":"jwj0831@gmail.com"}}' \
+http://117.16.146.55:9999/CSN-REST/csn/start
+-------------------------------------------------------
+
+
+POST (JSON) [Restart CSN System] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"config":{"name":"CSN-REST-Server","adminName":"NFM", "adminEmail":"jwj0831@gmail.com"}}' \
+http://117.16.146.55:9999/CSN-REST/csn/restart
+-------------------------------------------------------
+
+
+POST (JSON) [Stop CSN System] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{}' \
+http://117.16.146.55:9999/CSN-REST/csn/stop
+-------------------------------------------------------

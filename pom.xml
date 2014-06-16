@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>cir.lab</groupId>
 			<artifactId>CSN-Server</artifactId>
-			<version>0.2.4</version>
+			<version>0.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>

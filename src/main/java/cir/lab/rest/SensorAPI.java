@@ -186,16 +186,15 @@ public class SensorAPI {
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor ID: {}", id );
 		DAOReturnType retType = operator.getSensorNetworkManager().updateOptionalSensorMetadata(id, input.getOpt_meta().getElmts());
-		retJsonMap.put("action","POST");
+		retJsonMap.put("action","PUT");
 		retJsonMap.put("scope","one");
 		retJsonMap.put("id", id );
-		String retJsonString = null;
 		if(retType != DAOReturnType.RETURN_ERROR)
 			retJsonMap.put("result", "OK");
 		else
 			retJsonMap.put("result", "Fail");
 
-		return Response.ok(retJsonString, MediaType.APPLICATION_JSON).build();
+		return Response.ok(retJsonMap, MediaType.APPLICATION_JSON).build();
 	}
 
 	@DELETE
@@ -266,7 +265,7 @@ public class SensorAPI {
 		logger.info("Input Sensor Network ID: {}", id );
 		logger.info("Input Option Name: {}", opt_name);
 		DAOReturnType retType = operator.getSensorNetworkManager().removeOptionalSensorMetadataValue(id, opt_name);
-		retJsonMap.put("action","PUT");
+		retJsonMap.put("action","DELETE");
 		retJsonMap.put("scope","one");
 		retJsonMap.put("id", id );
 		if(retType != DAOReturnType.RETURN_ERROR)
@@ -317,7 +316,7 @@ public class SensorAPI {
 		String id = name+"-"+epoch ;
 		logger.info("Input Sensor Network ID: {}", id );
 		DAOReturnType retType = operator.getSensorNetworkManager().removeAllTagInSensor(id);
-		retJsonMap.put("action","POST");
+		retJsonMap.put("action","DELETE");
 		retJsonMap.put("scope","one");
 		retJsonMap.put("id", id );
 		if(retType != DAOReturnType.RETURN_ERROR)
@@ -369,7 +368,7 @@ public class SensorAPI {
 		logger.info("Input Sensor Network ID: {}", id );
 		logger.info("Input Tag: {}", tag);
 		DAOReturnType retType = operator.getSensorNetworkManager().removeTagInSensor(id, tag);
-		retJsonMap.put("action","POST");
+		retJsonMap.put("action","DELET");
 		retJsonMap.put("scope","one");
 		retJsonMap.put("id", id );
 		if(retType != DAOReturnType.RETURN_ERROR)

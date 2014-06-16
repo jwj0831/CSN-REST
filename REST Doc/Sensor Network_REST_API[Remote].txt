@@ -1,0 +1,196 @@
+POST [Sensor Network Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"seed":{"name":"All","members":["Node1-1401957226914", "Node2-1401957264693", "Node3-1401957307335","Node4-1401957321465"]}}' \
+http://117.16.146.55:9999/CSN-REST/sensor-networks
+-------------------------------------------------------
+
+
+GET [All Sensor Network Metadata] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensor-networks
+-------------------------------------------------------
+
+
+DELETE [All Sensor Network Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensor-networks
+-------------------------------------------------------
+
+
+GET [Sensor Network All ID] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/ids
+-------------------------------------------------------
+
+
+GET [Sensor Network All Topics] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/topics
+-------------------------------------------------------
+
+
+GET [Sensor Network All Members] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/members
+-------------------------------------------------------
+
+
+GET [Sensor Network Metadata] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722
+-------------------------------------------------------
+
+
+DELETE [Sensor Network Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722
+-------------------------------------------------------
+
+GET [Sensor Network Members] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/members
+-------------------------------------------------------
+
+GET [Sensor Network Topic Name] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/topic
+-------------------------------------------------------
+
+
+POST [Sensor Network All Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"opt_meta":{"elmts":{"opt1":"val1", "opt2":"val2"}}}' \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/All-1402884152544/opts
+-------------------------------------------------------
+
+
+GET [Sensor Network All Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/opts
+-------------------------------------------------------
+
+
+PUT [Sensor Network All Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X PUT \
+-d '{"opt_meta":{"elmts":{"opt1":"val1", "opt2":"new opt_val2"}}}' \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/All-1401957996004/opts
+-------------------------------------------------------
+
+
+DELETE [Sensor Network All Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/opts
+-------------------------------------------------------
+
+
+GET [Sensor Network Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/opts/opt1
+-------------------------------------------------------
+
+
+PUT [Sensor Network Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X PUT \
+-d '{"opt_meta":{"elmts":{"opt1":"val3"}}}' \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/opts/opt1
+-------------------------------------------------------
+
+
+DELETE [Sensor Network Optional Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/opts/opt2
+-------------------------------------------------------
+
+
+POST [Sensor Network All Tag Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X POST \
+-d '{"tag_meta":{"tags":["tag1", "tag2", "tag3", "tag4"]}}' \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Temperature-1401957695435/tags
+-------------------------------------------------------
+
+
+GET [Sensor Network All Tag Metadata] OK
+-------------------------------------------------------
+curl -v \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/tags
+-------------------------------------------------------
+
+
+DELETE [Sensor Network All Tag Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/tags
+-------------------------------------------------------
+
+
+PUT [Sensor Network Tag Metadata] OK
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-X PUT \
+-d '{"tag_meta":{"tags":["newTag"]}}'  \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/tags/tag1
+-------------------------------------------------------
+
+
+DELETE [Sensor Tag Metadata] OK
+-------------------------------------------------------
+curl -v \
+-X DELETE \
+http://117.16.146.55:9999/CSN-REST/sensor-networks/Net1-1401887884722/tags/tag2
+-------------------------------------------------------
+
+
+
+
+ETC
+
+
+POST (Form) 
+-------------------------------------------------------
+curl -v \
+-H "Accept: application/json" \
+-H "Content-type: application/x-www-form-urlencoded" \
+-X POST \
+-d 'name=CSN_Web&adminName=Woojin&adminEmail=jwj0831@gmail.com&key=2d207a02df6601572b6542f00bc90f3f9becf358' \
+http://117.16.146.55:9999/CSN-REST/csn
+-------------------------------------------------------
